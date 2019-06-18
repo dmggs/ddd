@@ -1,0 +1,21 @@
+/*全局样式定义*/
+*{
+    margin: 0;
+    padding: 0
+}
+li{
+    list-style: none
+}
+a{
+    text-decoration: none
+}
+.active{
+    border-bottom: r(4) solid #1fb1b9;
+}
+.actives{
+    border-bottom: r(2) solid #1fb1b9;
+}
+.activess{
+    background: #1fb1b9;
+    color: #ffffff;
+}
