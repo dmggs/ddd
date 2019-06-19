@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import Store from "storejs";
 import { MessageBox } from "mint-ui";
 export default {
   data() {
@@ -115,6 +116,15 @@ export default {
     };
   },
   methods: {
+    jiesuan() {
+      if (!Store.get("userInfo")) {
+          this.$router.push({
+            path:'/my'
+          })
+      } else {
+        alert(2);
+      }
+    },
     jisuan(index) {
       this.jisuanindex = index;
     },
@@ -207,10 +217,7 @@ export default {
       
       });
     },
-    jiesuan(){
-      
-
-    }
+   
   },
   mounted() {
     

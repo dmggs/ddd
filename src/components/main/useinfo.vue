@@ -25,7 +25,9 @@ export default {
   },
   mounted() {
     this.userInfo = Store.get("userInfo");
-    console.log(this.userInfo);
+    if (!Store.get("userInfo")) {
+      window.location.reload();
+    }
   },
   methods: {
     tuichu(){

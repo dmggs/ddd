@@ -1,13 +1,14 @@
 <template>
   <div>
    
-      <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"/>
-    </keep-alive>
-        <router-view v-if="!$route.meta.keepAlive"/>
-   
+    
+        <router-view></router-view>
 
-         <footers v-show="!($route.path=='/show'||$route.path=='/my')"></footers>
+      
+                                                    
+
+         <!-- <footers v-show="!($route.path=='/show'||($route.path=='/my'&&this.userInfo==undefined))"></footers> -->
+         <footers v-show="!($route.path=='/show'||$route.path=='/register')"></footers>
   </div>
 </template>
 

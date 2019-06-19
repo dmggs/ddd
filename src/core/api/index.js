@@ -95,7 +95,9 @@ class Apls {
   mokeLogin(data){
 		return mock.post("/login",{params:data})
   }                         
- 
+  register(data){
+    return mock.post("/register",{params:data})
+  }
 
 }
 

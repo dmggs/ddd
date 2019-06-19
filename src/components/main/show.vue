@@ -299,7 +299,7 @@
         <span class="price-b-s1" @click="gwc">加入购物车</span>
       </div>
       <div class="price-c">
-        <span class="price-c-s2">立即购买</span>
+        <span class="price-c-s2" @click="gm">立即购买</span>
       </div>
     </div>
 
@@ -308,6 +308,7 @@
 </template>
 
 <script>
+import Store from "storejs";
 import { MessageBox } from "mint-ui";
 export default {
   name: "HelloWorld",
@@ -326,16 +327,16 @@ export default {
     // console.log(this.$route.query);
   },
   methods: {
+    gm() {
+      if (!Store.get("userInfo")) {
+          this.$router.push({
+            path:'/my'
+          })
+      } else {
+        alert(2);
+      }
+    },
     gwc() {
-      // MessageBox({
-      //   title: "成功加入购物车",
-      //   message: "是否立即查看?",
-      //   showCancelButton: true
-      // }).then(action => {
-      //   this.$router.push({
-      //     path: "/cart"
-      //   });
-      // });
       MessageBox.confirm("", {
         message: "是否立即查看？",
         title: "成功加入购物车",
@@ -369,7 +370,7 @@ export default {
         price: this.iee[this.activeindex].CurrentPrice,
         size: this.iee[this.activeindex].Size,
         url: this.bannerList[0],
-         bool:false
+        bool: false
       };
       this.$store.commit("add", data);
     },

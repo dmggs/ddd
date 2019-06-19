@@ -77,8 +77,10 @@ export default {
   methods: {
     pageInit() {
       if (!Store.get("userInfo")) {
+      
         this.loginNum = 0;
       } else {
+         
         this.userInfo = Store.get("userInfo");
         this.loginNum = 1;
       }
@@ -95,14 +97,14 @@ export default {
         if (res.data.code == 1) {
           this.userInfo = res.data.data;
           console.log(this.userInfo.name);
-          Store.set("userInfo", this.userInfo);
+           Store.set("userInfo", res.data.data);
         } else if (res.data.code == 2) {
           alert(res.data.msg);
         } else {
           alert(res.data.msg);
         }
       });
-       window.location.reload();
+      //  window.location.reload();
     },
     toInfo(){
       this.$router.push({
