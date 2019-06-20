@@ -1,82 +1,96 @@
 <template>
-  <div id="cart">
-    <ul class="cart">
-      <li v-for="(item,index) in $store.state.shopCart.list" :key="index" class="carts">
-        <div class="top">
-          <div class="left">
-            <!-- <img src="https://res.bestcake.com/m-images/order/mw_firm_duihao_2.jpg"> -->
-            <input type="checkbox" v-model="item.bool" @click="danxuan(index)">
-          </div>
-          <div class="right">
-            <div class="right1">
-              <img :src="item.url" @click="toShow(item.name,item.Brand)">
+  <div>
+    <div id="cart" v-if="showindex==0">
+      <ul class="cart">
+        <li v-for="(item,index) in $store.state.shopCart.list" :key="index" class="carts">
+          <div class="top">
+            <div class="left">
+              <!-- <img src="https://res.bestcake.com/m-images/order/mw_firm_duihao_2.jpg"> -->
+              <input type="checkbox" v-model="item.bool" @click="danxuan(index)">
             </div>
-            <div class="right2">
-              <div class="item-name">{{item.name|textLengthSet(10)}}</div>
-              <div class="right3">
-                <div class="item-size">{{item.size}}</div>
-                <div class="item-num">
-                  <span @click="del(index)">-</span>
-                  <span>{{item.num}}</span>
-                  <span @click="add(index)">+</span>
+            <div class="right">
+              <div class="right1">
+                <img :src="item.url" @click="toShow(item.name,item.Brand)">
+              </div>
+              <div class="right2">
+                <div class="item-name">{{item.name|textLengthSet(10)}}</div>
+                <div class="right3">
+                  <div class="item-size">{{item.size}}</div>
+                  <div class="item-num">
+                    <span @click="del(index)">-</span>
+                    <span>{{item.num}}</span>
+                    <span @click="add(index)">+</span>
+                  </div>
+                </div>
+                <div class="right4">
+                  <span>{{item.num*item.price}}.00</span>
                 </div>
               </div>
-              <div class="right4">
-                <span>{{item.num*item.price}}.00</span>
-              </div>
             </div>
           </div>
-        </div>
-        <div class="heng" v-show="!(index%2==0)"></div>
-        <div class="botton">
-          <p>
-            <span>优惠方式</span>不参与活动
-          </p>
-        </div>
-      </li>
-    </ul>
-    <div class="kong" v-show="$store.state.shopCart.list.length==0">购物车是空的哦!</div>
-    <div class="rexiao">
-      <h2>Hot Recommend</h2>
-      <div class="gang"></div>
-      <h6>热销新品推荐</h6>
-      <div class="goods">
-        <ul>
-          <li v-for="(item,index) in goods" :key="index">
-            <img :src="item.img" @click="toShow(item.Name,item.Brand)">
-            <p>伴手礼系列-{{item.Name|textLengthSet(5)}}</p>
+          <div class="heng" v-show="!(index%2==0)"></div>
+          <div class="botton">
             <p>
-              <span>{{item.price}}</span>/
-              <span>{{item.size}}</span>
-              <span>
-                <img
-                  style="width:17px;height:17px;margin-left:70px"
-                  src="https://res.bestcake.com\m-images\order\mw_firm_gwc.jpg"
-                  @click=" gwc(item)"
-                >
-              </span>
+              <span>优惠方式</span>不参与活动
             </p>
-          </li>
-        </ul>
+          </div>
+        </li>
+      </ul>
+      <div class="kong" v-show="$store.state.shopCart.list.length==0">购物车是空的哦!</div>
+      <div class="rexiao">
+        <h2>Hot Recommend</h2>
+        <div class="gang"></div>
+        <h6>热销新品推荐</h6>
+        <div class="goods">
+          <ul>
+            <li v-for="(item,index) in goods" :key="index">
+              <img :src="item.img" @click="toShow(item.Name,item.Brand)">
+              <p>伴手礼系列-{{item.Name|textLengthSet(5)}}</p>
+              <p>
+                <span>{{item.price}}</span>/
+                <span>{{item.size}}</span>
+                <span>
+                  <img
+                    style="width:17px;height:17px;margin-left:70px"
+                    src="https://res.bestcake.com\m-images\order\mw_firm_gwc.jpg"
+                    @click=" gwc(item)"
+                  >
+                </span>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="dibu">
+        <div class="one">
+          <input type="checkbox" v-model="bool" @click="quanxuan">
+          <span>全选</span>
+          <span @click="clear">清空</span>
+        </div>
+        <div class="two">
+          合计:
+          <span style="color:red;font-weight:bolder;">{{cunt}}</span>
+          <div style="font-weight: bolder">已优惠:0.00</div>
+        </div>
+        <div class="three" @click="jiesuan">结算</div>
       </div>
     </div>
-    <div class="dibu">
-      <div class="one">
-        <input type="checkbox" v-model="bool" @click="quanxuan">
-        <span>全选</span>
-        <span @click="clear">清空</span>
-      </div>
-      <div class="two">
-        合计:
-        <span style="color:red;font-weight:bolder;">{{cunt}}</span>
-        <div style="font-weight: bolder">已优惠:0.00</div>
-      </div>
-      <div class="three" @click="jiesuan">结算</div>
+     <transition enter-active-class="slideInLeft">
+    <div v-if="showindex==2" class="animated">
+      <my></my>
     </div>
+    </transition>
+     <transition enter-active-class="slideInLeft">
+      <div v-if="showindex==1" class="animated">
+        <goumai :heji='heji'></goumai>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import goumai from "@/components/tempCommon/goumai.vue";
+import my from "@/components/main/my.vue";
 import Store from "storejs";
 import { MessageBox } from "mint-ui";
 export default {
@@ -112,17 +126,23 @@ export default {
         }
       ],
       list: [],
-      jiesuanlist: []
+      jiesuanlist: [],
+      showindex: 0
     };
   },
   methods: {
     jiesuan() {
       if (!Store.get("userInfo")) {
-          this.$router.push({
-            path:'/my'
-          })
+        // this.$router.push({
+        //   path:'/my'
+
+        // })
+       ;
+        this.showindex = 2;
       } else {
-        alert(2);
+       
+        //  MessageBox.alert("您还没选择商品");
+          this.showindex = 1;
       }
     },
     jisuan(index) {
@@ -145,7 +165,7 @@ export default {
         size: item.size,
         url: item.img,
         Brand: item.Brand,
-         bool:false
+        bool: false
       };
       this.$store.commit("add", data);
     },
@@ -179,7 +199,7 @@ export default {
           });
       }
     },
-   
+
     danxuan(index) {
       var rel = [];
       if (this.$store.state.shopCart.list[index].bool) {
@@ -192,13 +212,12 @@ export default {
           rel.push(res);
         }
       });
-       this.heji=rel
-         if(this.heji.length==this.$store.state.shopCart.list.length){
-              this.bool=true
-        }else {
-          this.bool=false
-        }
-        
+      this.heji = rel;
+      if (this.heji.length == this.$store.state.shopCart.list.length) {
+        this.bool = true;
+      } else {
+        this.bool = false;
+      }
     },
     quanxuan() {
       this.$store.state.shopCart.list.forEach(res => {
@@ -208,20 +227,16 @@ export default {
           res.bool = true;
         }
       });
-        var rel = [];
+      var rel = [];
       this.$store.state.shopCart.list.forEach(res => {
         if (res.bool) {
           rel.push(res);
         }
-        this.heji=rel
-      
+        this.heji = rel;
       });
-    },
-   
+    }
   },
-  mounted() {
-    
-  },
+  mounted() {},
   computed: {
     cunt() {
       var p = 0;
@@ -230,12 +245,17 @@ export default {
       });
       return p;
     }
+  },
+  components: {
+    goumai: goumai,
+    my:my
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
  <style scoped lang="scss">
+
 #cart {
   .cart {
     .carts {

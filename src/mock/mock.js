@@ -24,8 +24,9 @@ mock.onPost('/login').reply(config => {
  
 });
 mock.onPost('/register').reply(config=>{
-  var reqdata=config.data.params
-  console.log(config.data);
+  var reqdata=JSON.parse(config.data).params
+        
+
   var datas={
     username:reqdata.username,
     password:reqdata.password,

@@ -12,7 +12,7 @@
       </p>
     </form>
    <button v-fileUpload="setInputFile">选择头像</button>
-    <img :src="url" alt="">
+    <img :src="url" alt="" style="width:35px;height:35px">
 
   </div>
 </template>
@@ -23,7 +23,7 @@ import Store from "storejs";
 export default {
   data() {
     return {
-      url:'',
+      url:"",
       username: "",
       password: "",
       usertel: "",
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
      fileUpload(url){
-       console.log(url);
+      //  console.log(url);
      this.url=url
     },
     register() {
@@ -56,6 +56,8 @@ export default {
           this.$router.push({
             path: "/my"
           });
+        }else{
+           MessageBox("用户名已存在!请重新输入");
         }
       });
     }

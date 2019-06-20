@@ -35,8 +35,29 @@ export default (Vue)=>{
             
             //去调用当前组件组件里面 
             var fn=data.fn; //fileUpload
-            //vnode.context.fileUpload(window.URL.createObjectURL(file))
-            vnode.context[fn](window.URL.createObjectURL(file))
+            var imgurl=window.URL.createObjectURL(file)
+
+            //
+            // vnode.context[fn](file)
+
+            var image = new Image();  
+            image.src = imgurl;  
+          function getBase64Image(img) {  
+              var canvas = document.createElement("canvas");  
+              canvas.width = img.width;  
+              canvas.height = img.height;  
+              var ctx = canvas.getContext("2d");  
+              ctx.drawImage(img, 0, 0, img.width, img.height);  
+              var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();  
+              var dataURL = canvas.toDataURL("image/"+ext);  
+              return dataURL;  
+         }  
+
+            image.onload = function(){  
+                 var base64 = getBase64Image(image);  
+                 vnode.context.fileUpload(base64)
+                  // console.log(typeof base64);  
+            }  
           }
  })
   

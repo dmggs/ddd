@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import apis from "@/core/api/index"
 import Store from 'storejs'
+import { MessageBox } from "mint-ui";
 // console.log("OK");
 Vue.use(Vuex);
 
@@ -46,11 +47,29 @@ const mutations = {
   },
   jian(state, data) {
     //购物车页面数量减
-    state.shopCart.list.forEach(ele => {
+    state.shopCart.list.forEach((ele,index)=> {
       if (ele.id == data.id) {
         ele.num--
-        if (ele.num == 0) {
-          ele.num = 1;
+        if (ele.num <= 0) {
+          MessageBox.confirm("", {
+           
+            title: "是否删除该商品?",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消"
+          })
+            .then(action => {
+              if (action == "confirm") {
+                //确认的回调
+                state.shopCart.list.splice(index,1) 
+              }
+            })
+            .catch(err => {
+              if (err == "cancel") {
+                //取消的回调
+                ele.num = 1;
+              }
+            });
+        
         }
       }
     });

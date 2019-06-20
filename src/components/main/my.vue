@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import { MessageBox } from "mint-ui";
 import Store from "storejs";
 export default {
   data() {
@@ -96,12 +97,13 @@ export default {
 
         if (res.data.code == 1) {
           this.userInfo = res.data.data;
-          console.log(this.userInfo.name);
+       location.reload()
            Store.set("userInfo", res.data.data);
         } else if (res.data.code == 2) {
-          alert(res.data.msg);
+          MessageBox.alert(res.data.msg);
+         
         } else {
-          alert(res.data.msg);
+          MessageBox.alert(res.data.msg);
         }
       });
       //  window.location.reload();

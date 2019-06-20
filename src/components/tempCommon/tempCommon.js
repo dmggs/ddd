@@ -5,7 +5,7 @@ import { Navbar, TabItem } from 'mint-ui';
 import { Search } from 'mint-ui';
 import { TabContainer, TabContainerItem } from 'mint-ui';
 import { Cell } from 'mint-ui';
-
+import goumai from '@/components/tempCommon/goumai'
 
 
 
@@ -20,6 +20,7 @@ export default (Vue) => {
   Vue.component(Navbar.name, Navbar);
   Vue.component(TabItem.name, TabItem);
   Vue.component("gonggao", gonggao);
+  // Vue.component("goumai", goumai);
   Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Cell.name, Cell);
