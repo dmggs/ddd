@@ -1,5 +1,9 @@
 <template>
   <div class="main">
+    <div class="jiantou" @click="retruns">
+      <div class="left1"></div>
+    <div class="left2"></div>
+    </div>
     <p class="huanying">欢迎注册</p>
     <p></p>
     <form>
@@ -42,6 +46,10 @@ export default {
       //  console.log(url);
      this.url=url
     },
+    retruns(){
+      this.$router.go(-1)
+
+    },
     register() {
       var data = {
         username: this.username,
@@ -67,6 +75,45 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
  <style scoped lang="scss">
+ .jiantou{
+  width:20px;
+	height:20px;
+	position:absolute;
+	left:0;
+	top:r(20);
+ }
+ .left1{
+  width:0;
+	height:0;
+	display:block;
+	position:absolute;
+	left:0;
+	top:0;
+	border-top:10px transparent dashed;
+	border-left:10px transparent dashed;
+	border-bottom:10px transparent dashed;
+	border-right:10px #fff solid;
+	overflow:hidden;
+
+  right:2px;
+	/*重要*/
+		    border-right:10px #fff solid;
+ }
+ .left2{
+ width:0;
+	height:0;
+	display:block;
+	position:absolute;
+	left:2px;
+	top:0;
+	border-top:10px transparent dashed;
+	border-left:10px transparent dashed;
+	border-bottom:10px transparent dashed;
+	border-right:10px #fff solid;
+	overflow:hidden;
+
+  	border-right:10px rgba(54, 209, 220, 1) solid;
+ }
 .main {
   width: 100%;
   background: rgba(54, 209, 220, 1);

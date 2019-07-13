@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="my" v-if="loginNum==0">
-      <div class="back"></div>
+      <div class="back" @click="back=> this.$router.go(-1)"></div>
       <div class="mima">密码登陆</div>
       <form class="form">
         <input type="text" v-model="usename" class="usename" placeholder="账号:">
@@ -76,6 +76,7 @@ export default {
 
   },
   methods: {
+
     pageInit() {
       if (!Store.get("userInfo")) {
       
